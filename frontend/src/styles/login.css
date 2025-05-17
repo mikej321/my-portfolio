@@ -1,0 +1,91 @@
+.login_header {
+    margin-block: 10rem 6rem;
+    font-size: 2.4rem;
+    font-family: var(--montserrat);
+    font-weight: bold;
+    color: var(--modern_highlight_night);
+    text-align: center;
+}
+
+.login_inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.login_inputs div:nth-child(2) {
+    margin-bottom: 4rem;
+}
+
+.login_inputs .username_login,
+.login_inputs .password_login {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+.login_inputs .username_login label,
+.login_inputs .password_login label {
+    font-family: var(--lato);
+    color: var(--modern_accent_night);
+    font-size: 1.6rem;
+}
+
+.login_inputs .username_login input,
+.login_inputs .password_login input {
+    width: 100%;    
+    max-width: 32rem;
+    border: none;
+    min-height: 4rem;
+    border-radius: .8rem;
+}
+
+.login_inputs button[type="submit"] {
+    min-height: 5rem;
+    min-width: 14rem;
+    background: #38BDF8;
+    font-family: var(--lato);
+    font-weight: 700;
+    font-size: 2rem;
+    border-radius: .8rem;
+    border: none;
+    color: #0F172A;
+    align-self: center;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 40rem) {
+    .login_header {
+        font-weight: bold;
+        font-size: 4.8rem;
+        margin-block: 12rem 8rem;
+    }
+
+    .login_inputs {
+        gap: 4rem;
+    }
+
+    .login_inputs div:nth-child(2) {
+        margin-bottom: 8rem;
+    }
+
+    .login_inputs .username_login,
+    .login_inputs .password_login {
+        gap: 2rem;
+    }
+
+    .login_inputs .username_login label,
+    .login_inputs .password_login label {
+        font-size: 2.4rem;
+    }
+
+    .login_inputs .username_login input,
+    .login_inputs .password_login input {
+        min-height: 5rem;
+    }
+
+    .login_inputs button[type="submit"] {
+
+    }
+}
