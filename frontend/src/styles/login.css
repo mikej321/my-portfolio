@@ -1,20 +1,36 @@
+.glass_login {
+    width: 100%;
+    grid-template-areas: "header" "inputs";
+    grid-template-rows: 10rem 2fr;
+}
+
 .login_header {
-    margin-block: 10rem 6rem;
+    /* margin-top: 10rem; */
+    align-self: end;
     font-size: 2.4rem;
     font-family: var(--montserrat);
     font-weight: bold;
     color: var(--modern_highlight_night);
     text-align: center;
+    grid-area: header;
+    /* border: 1px solid white; */
 }
 
 .login_inputs {
     display: flex;
     flex-direction: column;
+    /* justify-content: center; */
+    /* border: 1px solid white; */
     gap: 4rem;
+    grid-area: inputs;
+}
+
+.login_inputs .username_login {
+    margin-top: 8rem;
 }
 
 .login_inputs div:nth-child(2) {
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
 }
 
 .login_inputs .username_login,
@@ -56,18 +72,34 @@
 }
 
 @media screen and (min-width: 40rem) {
+
+    .glass_login {
+        grid-template-areas: "header svg" "inputs svg";
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 20rem 1fr;
+        /* align-items: center; */
+        justify-content: center;
+        padding-bottom: 4rem;
+    }
+
     .login_header {
         font-weight: bold;
         font-size: 4.8rem;
-        margin-block: 12rem 8rem;
+        align-self: end;
+        /* margin-block: 12rem 8rem; */
     }
 
     .login_inputs {
+        margin-top: 6rem;
         gap: 4rem;
     }
 
+    .login_inputs .username_login {
+        margin-top: unset;
+    }
+
     .login_inputs div:nth-child(2) {
-        margin-bottom: 8rem;
+        margin-bottom: 4rem;
     }
 
     .login_inputs .username_login,

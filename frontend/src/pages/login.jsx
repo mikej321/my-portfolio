@@ -12,7 +12,7 @@ function Login() {
         <Navbar />
       </header>
       <main>
-        <Glass>
+        <Glass className="glass_container glass_login">
           <h1 className="login_header">Admin Login</h1>
           <div className="login_inputs">
             <div className="username_login">
