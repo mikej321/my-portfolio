@@ -1,4 +1,9 @@
-import { useState } from "react";
+import { useRef } from "react";
+import { OverlayScrollbars } from 'overlayscrollbars';
+import gsap from "gsap";
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import Navbar from "../components/Navbar";
 import Glass from "../components/glass";
 import FooterBar from "../components/footer";
@@ -6,53 +11,112 @@ import Icon_bar from "../components/icon_bar";
 import '../styles/App.css';
 import '../styles/skills.css';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Skills() {
-    return (
-        <div className="page_container">
-            <header>
-                <Navbar />
-            </header>
-            <main>
-                <Glass className="glass_skills">
-                    <div className="breadcrumb_container">
-                        <p>Home &gt; <span className="current_page">My Skills</span></p>
-                    </div>
-                    
-                    <div className="tools_container">
-                        <h1>Tools and Tech</h1>
-                        <ul className="tools">
-                            <li>HTML5/CSS3</li>
-                            <li>JavaScript</li>
-                            <li>React</li>
-                            <li>Python</li>
-                            <li>SQL (PostgreSQL)</li>
-                        </ul>
-                    </div>
-                    
-                    
-                    <div className="strengths_container">
-                        <h1>Strengths</h1>
-                        <ul className="strengths">
-                            <li>UI Design</li>
-                            <li>Data Analysis</li>
-                            <li>Full Stack Development</li>
-                            <li>Responsive Design</li>
-                            <li>Clean Code</li>
-                        </ul>
-                    </div>
-                    <div className="achievements_container">
-                        <h1>Achievements</h1>
-                        <ul className="achievements">
-                            <li>Finished FreeCodeCamp's Web Development Course (2022)</li>
-                            <li>Finished TheOdinProject's Full Stack Course (2023)</li>
-                            <li>Obtained Associate Data Engineer certification with DataCamp (April 3, 2025)</li>
-                            <li>Completed Build Carolina Apprenticeship (June 20, 2025)</li>
-                        </ul>
-                    </div>
-                        
-                </Glass>
-                <FooterBar />
-            </main>
-        </div>
-    )
+  const containerRef = useRef(null);
+  const viewportRef = useRef(null);
+
+  const animateStaggeredChildren = (containerSelector, scrollerEl) => {
+    const container = document.querySelector(containerSelector);
+    if (!container) return;
+
+    const children = Array.from(container.children).flatMap(child =>
+      child.tagName === 'UL' ? Array.from(child.children) : [child]
+    );
+
+    gsap.fromTo(children,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: container,
+          scroller: scrollerEl,
+          start: "top+=100 bottom",
+          toggleActions: "play reverse play reverse",
+        },
+        ease: "power3.out"
+      }
+    );
+  };
+
+  useGSAP(() => {
+    if (!containerRef.current) return;
+
+    const osInstance = OverlayScrollbars(containerRef.current, {
+      scrollbars: { autoHide: 'leave' }
+    });
+
+    const scrollerEl = osInstance.elements().viewport;
+    viewportRef.current = scrollerEl;
+
+    [
+      ".tools_container",
+      ".strengths_container",
+      ".achievements_container"
+    ].forEach(selector => {
+      animateStaggeredChildren(selector, scrollerEl);
+    });
+
+    ScrollTrigger.refresh();
+
+    return () => {
+      osInstance?.destroy();
+    };
+  }, []);
+
+  return (
+    <div className="page_container">
+      <header>
+        <Navbar />
+      </header>
+      <main>
+        <Glass className="glass_skills">
+          <div ref={containerRef} className="scrollbar-container">
+            <div className="skills_grid">
+              <div className="breadcrumb_container">
+                <p>Home &gt; <span className="current_page">My Skills</span></p>
+              </div>
+
+              <div className="tools_container">
+                <h1>Tools and Tech</h1>
+                <ul className="tools">
+                  <li>HTML5/CSS3</li>
+                  <li>JavaScript</li>
+                  <li>React</li>
+                  <li>Python</li>
+                  <li>SQL (PostgreSQL)</li>
+                </ul>
+              </div>
+
+              <div className="strengths_container">
+                <h1>Strengths</h1>
+                <ul className="strengths">
+                  <li>UI Design</li>
+                  <li>Data Analysis</li>
+                  <li>Full Stack Development</li>
+                  <li>Responsive Design</li>
+                  <li>Clean Code</li>
+                </ul>
+              </div>
+
+              <div className="achievements_container">
+                <h1>Achievements</h1>
+                <ul className="achievements">
+                  <li>Finished FreeCodeCamp's Web Development Course (2022)</li>
+                  <li>Finished TheOdinProject's Full Stack Course (2023)</li>
+                  <li>Obtained Associate Data Engineer certification with DataCamp (April 3, 2025)</li>
+                  <li>Completed Build Carolina Apprenticeship (June 20, 2025)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </Glass>
+        <FooterBar />
+      </main>
+    </div>
+  );
 }

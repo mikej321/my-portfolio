@@ -1,13 +1,38 @@
-.glass_skills {
+.glass_container.glass_skills {
     max-height: 60rem;
-    grid-template-rows: 10rem repeat(3, 1fr);
-    gap: 6rem;
-    overflow-y: scroll;
     overflow-x: hidden;
     color: var(--modern_accent_night);
-    scrollbar-width: auto;
-    scrollbar-color: var(--modern_accent_night) transparent;
-    padding-bottom: 10rem;
+    padding-inline: 2rem;
+    scrollbar-width: none;
+}
+
+.skills_grid {
+    display: grid;
+    grid-template-rows: 10rem repeat(3, 1fr);
+    grid-template-areas: "breadcrumbs" "tools" "strengths" "achievements";
+    gap: 10rem;
+    /* align-items: center; */
+    padding-inline: 2rem;
+    padding-bottom: 19rem;
+}
+
+.scrollbar-container {
+    max-height: 60rem;
+    overflow: auto;
+    position: relative;
+}
+
+.scrollbar-container .os-scrollbar-vertical {
+    width: 12px;
+    right: -2px;
+    margin-block: 4rem;
+}
+
+.scrollbar-container .os-scrollbar-vertical .os-scrollbar-handle {
+    background: var(--modern_accent_night);
+    border-radius: 4px;
+    max-height: 6rem;
+    cursor: pointer;
 }
 
 .breadcrumb_container {
@@ -18,15 +43,17 @@
     font-size: 1.6rem;
     font-weight: bold;
     color: var(--modern_accent_night);
+    grid-area: breadcrumbs;
 }
 
 .current_page {
     color: var(--modern_primary_night);
+    cursor: pointer;
 }
 
 .glass_skills h1 {
     font-family: var(--montserrat);
-    color: var(--modern_primary_night);
+    color: var(--modern_highlight_night);
 }
 
 .tools_container,
@@ -34,7 +61,7 @@
 .achievements_container {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 4rem;
     align-items: center;
 }
 
@@ -53,37 +80,69 @@
 }
 
 .tools_container {
-    /* margin-bottom: 50rem; */
-}
-
-.tools {
-
+    grid-area: tools;
 }
 
 .strengths_container {
-
-}
-
-.strengths {
-
+    grid-area: strengths;
 }
 
 .achievements_container {
-
+    grid-area: achievements;
 }
 
-.achievements {
+@media screen and (min-width: 40rem) {
+    .glass_container.glass_skills {
+        overflow-y: hidden;
+    }
 
-}
+    .skills_grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 10rem repeat(2, 1fr);
+        grid-template-areas: "breadcrumbs breadcrumbs" "tools strengths" "achievements achievements";
+        gap: 8rem;
+        align-items: unset;
+    }
 
-.tools {
+    .scrollbar {
+        max-height: unset;
+    }
 
-}
+    .scrollbar-container {
+        max-height: unset;
+    }
 
-.strengths {
+    .scrollbar .os-scrollbar-vertical {
+        display: none;
+    }
 
-}
+    .breadcrumb_container {
+        justify-self: start;
+    }
 
-.achievements {
 
+    .tools_container,
+    .achievements_container {
+        margin-left: 6rem;
+        align-items: start;
+    }
+
+    .strengths_container {
+        align-items: end;
+        margin-right: 10rem;
+    }
+
+    .tools,
+    .achievements {
+        text-align: left;
+        align-items: start;
+        padding-left: 4rem;
+        /* border: 1px solid red; */
+    }
+
+    .strengths {
+        padding-right: 4rem;
+        text-align: left;
+        align-items: end;
+    }
 }

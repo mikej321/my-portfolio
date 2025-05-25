@@ -1,6 +1,7 @@
 .mobile_social_container {
     position: absolute;
-    bottom: clamp(3rem, 4vh, 6rem);
+    /* bottom: clamp(3rem, 4vh, 6rem); */
+    bottom: 8rem;
     left: 4rem;
     right: 4rem;
     display: flex;
