@@ -1,0 +1,115 @@
+.glass_container.glass_contact {
+    grid-template-rows: 10rem 1fr 1fr;
+    grid-template-areas: "breadcrumbs" "contact_info" "mission_statement";
+}
+
+.contact_info_container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-self: start;
+    grid-area: contact_info;
+    gap: 6rem;
+    font-family: var(--lato);
+    color: var(--modern_accent_night);
+    font-size: 1.6rem;
+    margin-top: 6rem;
+}
+
+.info_container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 2rem;
+}
+
+.phone_container svg {
+    width: 3rem;
+    height: 3rem;
+}
+
+.phone_container svg path {
+    stroke-width: 1rem;
+}
+
+.phone_number,
+.email_address {
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+.email_container svg {
+    width: 3.4rem;
+    height: 2.5rem;
+}
+
+.phone_number:hover,
+.email_address:hover {
+    color: var(--modern_primary_night);
+}
+
+.mission_statement {
+    grid-area: mission_statement;
+    font-family: var(--lato);
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: var(--modern_accent_night);
+    text-align: left;
+    line-height: 2.6rem;
+    margin-top: 6rem;
+}
+
+@media screen and (min-width: 40rem) {
+    .glass_container.glass_contact {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 10rem 1fr;
+        grid-template-areas: "breadcrumbs breadcrumbs" "contact_info mission_statement";
+        align-items: center;
+    }
+
+    .glass_container.glass_contact .breadcrumb_container {
+        justify-self: start;
+    }
+
+    .contact_info_container {
+        margin-top: unset;
+        font-size: 2.4rem;
+        gap: 10rem;
+    }
+
+    .info_container {
+        flex-direction: row;
+        align-items: center;
+        gap: 6rem;
+    }
+
+    .phone_container svg {
+        width: 7.5rem;
+        height: 7.5rem;
+    }
+
+    .phone_container svg path {
+        stroke-width: .6rem;
+    }
+
+    .email_container {
+        
+    }
+
+    .email_container svg {
+        width: 7.5rem;
+        height: 5.6rem;
+    }   
+
+    .email_container svg path {
+        
+    }
+
+    .mission_statement {
+        margin-top: unset;
+        font-size: 3.2rem;
+        line-height: 4rem;
+        max-width: 52rem;
+        text-align: left;
+    }
+}

@@ -16,39 +16,13 @@
     padding-bottom: 19rem;
 }
 
-.scrollbar-container {
-    max-height: 60rem;
-    overflow: auto;
-    position: relative;
-}
-
-.scrollbar-container .os-scrollbar-vertical {
-    width: 12px;
-    right: -2px;
-    margin-block: 4rem;
-}
-
-.scrollbar-container .os-scrollbar-vertical .os-scrollbar-handle {
-    background: var(--modern_accent_night);
-    border-radius: 4px;
-    max-height: 6rem;
-    cursor: pointer;
-}
-
-.breadcrumb_container {
+.scrollbar-container .breadcrumb_container {
     /* border: 1px solid red; */
     align-self: end;
-    justify-self: center;
     font-family: var(--montserrat);
     font-size: 1.6rem;
     font-weight: bold;
-    color: var(--modern_accent_night);
     grid-area: breadcrumbs;
-}
-
-.current_page {
-    color: var(--modern_primary_night);
-    cursor: pointer;
 }
 
 .glass_skills h1 {
@@ -62,7 +36,6 @@
     display: flex;
     flex-direction: column;
     gap: 4rem;
-    align-items: center;
 }
 
 .tools,
@@ -70,8 +43,6 @@
 .achievements {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
     gap: 2rem;
     list-style: none;
     font-family: var(--lato);
@@ -89,6 +60,10 @@
 
 .achievements_container {
     grid-area: achievements;
+}
+
+.achievements {
+    line-height: 2.5rem;
 }
 
 @media screen and (min-width: 40rem) {
@@ -116,7 +91,7 @@
         display: none;
     }
 
-    .breadcrumb_container {
+    .scrollbar-container .breadcrumb_container {
         justify-self: start;
     }
 

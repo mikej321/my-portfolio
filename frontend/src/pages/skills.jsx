@@ -3,7 +3,7 @@ import { OverlayScrollbars } from 'overlayscrollbars';
 import gsap from "gsap";
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Glass from "../components/glass";
 import FooterBar from "../components/footer";
@@ -11,11 +11,18 @@ import Icon_bar from "../components/icon_bar";
 import '../styles/App.css';
 import '../styles/skills.css';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function Skills() {
+  const navigate = useNavigate();
+
   const containerRef = useRef(null);
   const viewportRef = useRef(null);
+  const containers = [
+      ".tools_container",
+      ".strengths_container",
+      ".achievements_container"
+    ];
 
   const animateStaggeredChildren = (containerSelector, scrollerEl) => {
     const container = document.querySelector(containerSelector);
@@ -30,6 +37,7 @@ export default function Skills() {
       {
         opacity: 1,
         y: 0,
+        delay: 2.5,
         duration: 0.6,
         stagger: 0.15,
         scrollTrigger: {
@@ -53,11 +61,7 @@ export default function Skills() {
     const scrollerEl = osInstance.elements().viewport;
     viewportRef.current = scrollerEl;
 
-    [
-      ".tools_container",
-      ".strengths_container",
-      ".achievements_container"
-    ].forEach(selector => {
+    containers.forEach(selector => {
       animateStaggeredChildren(selector, scrollerEl);
     });
 
@@ -67,6 +71,17 @@ export default function Skills() {
       osInstance?.destroy();
     };
   }, []);
+
+  const backAnimation = async() => {
+    gsap.to(".tools_container, .strengths_container, .achievements_container", {
+      y: -50,
+      opacity: 0,
+      stagger: 0.2,
+      onComplete: () => {
+        navigate('/landing');
+      }
+    })
+  }
 
   return (
     <div className="page_container">
@@ -78,7 +93,7 @@ export default function Skills() {
           <div ref={containerRef} className="scrollbar-container">
             <div className="skills_grid">
               <div className="breadcrumb_container">
-                <p>Home &gt; <span className="current_page">My Skills</span></p>
+                <p className="former_page" onClick={backAnimation}>Home &gt; <span className="current_page">My Skills</span></p>
               </div>
 
               <div className="tools_container">

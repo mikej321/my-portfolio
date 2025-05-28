@@ -1,0 +1,88 @@
+.glass_container.glass_blogs {
+    max-height: 60rem;
+    overflow-x: hidden;
+    color: var(--modern_accent_night);
+    padding-inline: 2rem;
+    scrollbar-width: none;
+    display: grid;
+    grid-template-rows: 10rem 1fr;
+    grid-area: "breadcrumbs" "blogs";
+    padding-bottom: 4rem;
+    gap: 4rem;
+    scrollbar-width: none;
+}
+
+.scrollbar-container.blog-scroller {
+    scrollbar-width: none;
+    border-radius: 8px;
+}
+
+.scrollbar-container.blog-scroller .os-scrollbar-vertical {
+    width: 12px;
+    right: 12px;
+    margin-block: 2rem;
+}
+
+.scrollbar-container.blog-scroller .os-scrollbar-vertical .os-scrollbar-handle {
+    background: var(--modern_background_night);
+    border-radius: 4px;
+    max-height: 6rem;
+    cursor: pointer;
+}
+
+.blogs_grid {
+    background: var(--friendly_background_day);
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-auto-rows: 1fr;
+    gap: 4rem;
+    padding: 4rem;
+    border-radius: 8px;
+    grid-area: blogs;
+}
+
+.blog_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    background-color: var(--clean_primary_day);
+    padding: 2rem 3rem;
+    border-radius: 8px;
+    font-family: var(--lato);
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.blog_container:hover {
+    background-color: var(--modern_background_night);
+}
+
+.blog_container p {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.blog_clicked_expanded {
+    display: grid;
+    background: var(--friendly_background_day);
+    grid-template-rows: 4rem 1fr;
+    gap: 4rem;
+    padding: 4rem;
+    border-radius: 8px;
+    grid-area: blogs;
+}
+
+.blog_clicked_expanded h2 {
+    font-size: 2rem;
+    font-family: var(--montserrat);
+    font-weight: bold;
+    color: var(--modern_background_night);
+}
+
+.blog_clicked_expanded p {
+    font-size: 1.6rem;
+    font-family: var(--lato);
+    color: var(--modern_background_night);
+}

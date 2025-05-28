@@ -82,6 +82,61 @@ main {
   box-shadow: inset 0 2px 5px rgba(59, 130, 246, 0.4);
 }
 
+.glass_container .breadcrumb_container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    align-self: end;
+    font-family: var(--montserrat);
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--modern_accent_night);
+    /* grid-area: breadcrumbs; */
+}
+
+.former_page {
+  color: var(--modern_accent_night);
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.former_page:hover {
+  color: var(--modern_highlight_night);
+}
+
+.separator {
+  color: var(--modern_accent_night);
+}
+
+.current_page {
+  color: var(--modern_highlight_night);
+  transition: color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.former_page:hover .current_page {
+  color: var(--modern_accent_night);
+}
+
+.scrollbar-container {
+    max-height: 60rem;
+    overflow: auto;
+    position: relative;
+}
+
+.scrollbar-container .os-scrollbar-vertical {
+    width: 12px;
+    right: -2px;
+    margin-block: 4rem;
+}
+
+.scrollbar-container .os-scrollbar-vertical .os-scrollbar-handle {
+    background: var(--modern_accent_night);
+    border-radius: 4px;
+    max-height: 6rem;
+    cursor: pointer;
+}
+
 @media screen and (min-width: 40rem) {
   .glass_container {
     min-height: 85vh;

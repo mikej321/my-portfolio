@@ -44,6 +44,7 @@
 .login_inputs .username_login label,
 .login_inputs .password_login label {
     font-family: var(--lato);
+    font-weight: bold;
     color: var(--modern_accent_night);
     font-size: 1.6rem;
 }

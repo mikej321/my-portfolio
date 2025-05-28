@@ -1,20 +1,68 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from '@gsap/react';
 import "../styles/App.css";
 import "../styles/nav.css";
 
 export default function Navbar() {
+
+  const navRef = useRef(null);
+  const mainIconRef = useRef(null);
+  const identifierRef = useRef(null);
+  const iconRef = useRef(null);
+
+  useGSAP(() => {
+
+    const identifierChildren = [...identifierRef.current.children];
+    const iconChildren = [...iconRef.current.children];
+
+    const navTl = gsap.timeline()
+
+    navTl.fromTo(mainIconRef.current, {
+      x: -50,
+      opacity: 0,
+    }, {
+      x: 0,
+      opacity: 1,
+      duration: 1,
+      ease: "power3.out"
+    })
+    .fromTo(identifierChildren, {
+      y: 50,
+      opacity: 0,
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      stagger: 0.2,
+      ease: "power3.out"
+    })
+    .fromTo(iconChildren, {
+      x: 50,
+      opacity: 0
+    }, {
+      x: 0,
+      opacity: 1,
+      duration: 1,
+      stagger: 0.2,
+      ease: "power3.out"
+    })
+
+  }, {scope: navRef})
+
   return (
-    <nav className="nav">
+    <nav ref={navRef} className="nav">
       <img
+        ref = {mainIconRef}
         className="portfolio_icon"
         src="/assets/portfolio_main_icon.svg"
         alt="A folder with paper inside"
       />
-      <div className="identifier">
+      <div ref={identifierRef} className="identifier">
         <p className="nav_name">Michael Johnson</p>
         <p className="nav_role">Data & Software Engineer</p>
       </div>
-      <div className="desktop_social_container">
+      <div ref={iconRef} className="desktop_social_container">
         <div className="social_icon linkedin_icon">
           <svg
             viewBox="0 0 15 15"
