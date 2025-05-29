@@ -1,11 +1,13 @@
 .nav {
     position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     z-index: 1000;
     display: grid;
     grid-template-columns: 1fr auto;
     min-height: 6rem;
-    min-width: 100vw;
     padding-inline: 4rem;
     padding-block: .7rem;
     justify-content: space-between;
