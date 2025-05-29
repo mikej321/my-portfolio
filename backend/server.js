@@ -30,10 +30,12 @@ app.use(
   })
 );
 
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+
 // app.use(express.static(path.join(__dirname, "../frontend/dist/index.html")));
 
 app.options("*", cors({
-  origin: ["http://localhost:5173", "http://localhost:3000"],
+  origin: FRONTEND_URL,
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
   methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"]
