@@ -28,7 +28,7 @@ export default function Signup() {
             }
         );
             console.log("Signup response", { usename: response.username, password: response.password });
-            navigate("/adminLogin");
+            navigate("/login");
         } catch(err) {
             console.error("Signup failed:", err.response?.data || err.message);
         }
