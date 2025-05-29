@@ -33,7 +33,7 @@ export default function Blogs() {
   }, []);
 
   const getBlogs = async () => {
-    const response = await axios.get("http://localhost:3000/posts/get_blogs");
+    const response = await axios.get("/posts/get_blogs");
     return response.data.blogs;
   }
 
@@ -147,7 +147,7 @@ export default function Blogs() {
 
     if (!token) return console.error("No token found");
 
-    await axios.delete(`http://localhost:3000/posts/${blogId}`, {
+    await axios.delete(`/posts/${blogId}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
 

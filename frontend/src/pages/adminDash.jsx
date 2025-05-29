@@ -24,7 +24,7 @@ export default function AdminDash() {
 
         try {
             await axios.post(
-                "http://localhost:3000/posts/add_blog",
+                "/posts/add_blog",
                 {
                     title: blogTitle,
                     content: blogContent
