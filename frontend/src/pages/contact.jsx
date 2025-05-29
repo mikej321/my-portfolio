@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useNavigate } from 'react-router-dom';
@@ -13,25 +13,28 @@ gsap.registerPlugin(useGSAP);
 export default function Contact() {
 
     const navigate = useNavigate();
-    const tl = useRef();
-    const glassRef = useRef();
+    const tl = useRef(null);
+    const glassRef = useRef(null);
+    const statementRef = useRef(null);
 
     useGSAP(() => {
 
         const mediaQuery = gsap.matchMedia();
 
+        const statementChildren = [...statementRef.current.children];
+
         mediaQuery.add("(min-width: 40rem)", () => {
         tl.current = gsap.timeline()
-          .fromTo('.phone_container', { opacity: 0, x: -50 }, { opacity: 1, x: 0, delay: 1.5, duration: .2, ease: "power3.out" })
+          .fromTo('.phone_container', { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: .2, ease: "power3.out" })
           .fromTo('.email_container', { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: .2, ease: "power3.out" })
           .fromTo('.mission_statement', { opacity: 0, x: 50 }, { opacity: 1, x: 0, duration: .2, ease: "power3.out" });
     });
 
     mediaQuery.add("all", () => {
         tl.current = gsap.timeline({ paused: true })
-          .fromTo('.phone_container', { opacity: 0, x: -50 }, { opacity: 1, x: 0, delay: 1.5, duration: .2, ease: "power3.out" })
+          .fromTo('.phone_container', { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: .2, ease: "power3.out" })
           .fromTo('.email_container', { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: .2, ease: "power3.out" })
-          .fromTo('.mission_statement', { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: .2, ease: "power3.out" });
+          .fromTo(statementChildren, { opacity: 0, x: -50 }, { opacity: 1, x: 0, stagger: 0.2, duration: 1, ease: "power3.out" });
     }); 
 
     requestAnimationFrame(() => tl.current?.play());
@@ -44,7 +47,7 @@ export default function Contact() {
 
     const handleLeave = () => {
         tl.current?.reverse().then(() => {
-            navigate("/landing");
+            navigate("/");
         })
     }
 
@@ -74,11 +77,11 @@ export default function Contact() {
                             <p className="email_address">mjohnsondevelops@gmail.com</p>
                         </div>
                     </div>
-                    <div className="mission_statement">
-                        Engineer. Problem-solver. Collaborator. For me, coding
-                        is more than just a career or hobby, it's my passion.
-                        I'm all about building things that work well for you and your clients.
-                        Let's work side by side together to build something truly great.
+                    <div ref={statementRef} className="mission_statement">
+                        <p>Engineer. Problem-solver. Collaborator.</p>
+                        <p>Coding is my passion, learning is my pursuit.</p>
+                        <p>Building fantastic solutions to outstanding problems.</p>
+                        <p>Let's work together to build something truly great.</p>
                     </div>
                 </Glass>
                 <FooterBar />

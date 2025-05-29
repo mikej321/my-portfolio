@@ -27,6 +27,7 @@
     font-family: var(--montserrat);
     color: var(--modern_highlight_night);
     align-self: end;
+    opacity: 0;
 }
 
 .role_details {
@@ -44,12 +45,14 @@
 .role {
     font-size: 2rem;
     font-weight: 600;
+    opacity: 0;
 }
 
 .landing_guide {
     font-size: 1.6rem;
     line-height: 2.4rem;
     text-align: center;
+    opacity: 0;
 }
 
 .icon_container {

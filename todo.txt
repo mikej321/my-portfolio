@@ -2,3 +2,4 @@ List of things to do tomorrow
 
 Create modals for confirmation
 Create sidebar for logging in and creating blogs (routing and such)
+Add charts to skills / Find out which library is best for this

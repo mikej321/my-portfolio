@@ -5,6 +5,8 @@ import 'overlayscrollbars/overlayscrollbars.css';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '../components/Navbar';
 import Glass from '../components/glass';
 import FooterBar from '../components/footer';
@@ -17,6 +19,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 export default function Blogs() {
   const [blogs, setBlogs] = useState([]);
   const [blogClickedId, setBlogClickedId] = useState(null);
+  const [token, setToken] = useState(null);
 
   const scrollRef    = useRef(null);
   const blogsRef     = useRef(null);
@@ -39,6 +42,8 @@ export default function Blogs() {
     const osInstance = OverlayScrollbars(scrollRef.current, {});
     const viewportEl = osInstance.elements().viewport;
     viewportRef.current = viewportEl;
+    
+    setToken(localStorage.getItem('token'));
 
     const blogChildren = [...blogsRef.current.children];
     blogChildren.forEach(child => {
@@ -117,7 +122,7 @@ export default function Blogs() {
             ease: "power3.in",
             stagger: 0.2,
             onComplete: () => {
-                navigate('/landing')
+                navigate('/')
             }
         })
     } else {
@@ -130,10 +135,23 @@ export default function Blogs() {
             ease: "power3.in",
             stagger: 0.2,
             onComplete: () => {
-                navigate('/landing');
+                navigate('/');
             }
         })
     }
+  }
+
+  const blogDelete = async(blogId) => {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) return console.error("No token found");
+
+    await axios.delete(`http://localhost:3000/posts/${blogId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+
+    setBlogs(bs => bs.filter(b => b.articleId !== blogId));
   }
 
   const selected = blogs.find(b => b.articleId === blogClickedId);
@@ -165,18 +183,25 @@ export default function Blogs() {
             {blogClickedId === null ? (
                 // Means nothing is clicked
               <div ref={blogsRef} className="blogs_grid">
-                {blogs.map(blog => (
-                  <div
-                    className="blog_container"
-                    key={blog.articleId}
-                    onClick={() => handleBlogClick(blog.articleId)}
-                  >
-                    <h2>{blog.title}</h2>
-                    {blogClickedId === blog.articleId && (
-                      <div className="blog_content">{blog.content}</div>
-                    )}
-                  </div>
-                ))}
+                {blogs.length > 0 ? 
+                  blogs.map(blog => (
+                    <div
+                      className="blog_container"
+                      key={blog.articleId}
+                      onClick={() => handleBlogClick(blog.articleId)}
+                    >
+                      <h2>{blog.title}</h2>
+                      {token && (
+                        <FontAwesomeIcon onClick={(e) => {
+                          e.stopPropagation();
+                          blogDelete(blog.articleId);
+                        }} className="delete_icon" icon={faXmark} size="2x" />
+                      )}
+                    </div>
+                  )) : (
+                    <div className="blog_container">No Blogs Currently Available</div>
+                  )
+                }
               </div>
             ) : (
                 // A blog is clicked

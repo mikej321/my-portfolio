@@ -49,22 +49,30 @@
 }
 
 .mission_statement {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     grid-area: mission_statement;
     font-family: var(--lato);
     font-weight: bold;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     color: var(--modern_accent_night);
     text-align: left;
-    line-height: 2.6rem;
+    line-height: 2rem;
     margin-top: 6rem;
+}
+
+@media screen and (min-width: 35rem) {
+    .mission_statement {
+        font-size: 1.6rem;
+    }
 }
 
 @media screen and (min-width: 40rem) {
     .glass_container.glass_contact {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: 10rem 1fr;
-        grid-template-areas: "breadcrumbs breadcrumbs" "contact_info mission_statement";
-        align-items: center;
+        grid-template-columns: 1fr;
+        grid-template-rows: 10rem 2fr 1fr;
+        /* gap: 1rem; */
     }
 
     .glass_container.glass_contact .breadcrumb_container {
@@ -74,7 +82,7 @@
     .contact_info_container {
         margin-top: unset;
         font-size: 2.4rem;
-        gap: 10rem;
+        gap: 6rem;
     }
 
     .info_container {
@@ -84,8 +92,8 @@
     }
 
     .phone_container svg {
-        width: 7.5rem;
-        height: 7.5rem;
+        width: 5rem;
+        height: 5rem;
     }
 
     .phone_container svg path {
@@ -97,8 +105,8 @@
     }
 
     .email_container svg {
-        width: 7.5rem;
-        height: 5.6rem;
+        width: 5rem;
+        height: 5rem;
     }   
 
     .email_container svg path {
@@ -106,10 +114,12 @@
     }
 
     .mission_statement {
+        display: flex;
+        flex-direction: column;
         margin-top: unset;
-        font-size: 3.2rem;
-        line-height: 4rem;
-        max-width: 52rem;
+        font-size: 2rem;
+        line-height: 3rem;
         text-align: left;
+        gap: 1.5rem;
     }
 }

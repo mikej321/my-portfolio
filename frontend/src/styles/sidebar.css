@@ -1,0 +1,40 @@
+.sidebar_container {
+    /* display: none;  */
+    background: rgba(56, 189, 248, 0.4);
+    position: absolute;
+    top: 10rem;
+    left: 4rem;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 0;
+    height: 100%;
+    max-height: 20rem;
+    gap: 10rem;
+    padding-block: 4rem;
+    overflow: hidden;
+    font-family: var(--montserrat);
+    color: var(--clean_background_day);
+    border-radius: 16px;
+}
+
+.hamburger_links {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        gap: 4rem;
+        font-weight: bold;
+}
+
+.hamburger_links li {
+    cursor: pointer;
+    opacity: 0;
+    transition: color 0.2s ease-in-out;
+}
+
+.hamburger_links li:hover {
+    color: var(--dark_red);
+}

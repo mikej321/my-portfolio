@@ -37,7 +37,7 @@ export default function AdminDash() {
                 }
             )
 
-            navigate('/landing');
+            navigate('/');
         } catch(err) {
             if (err.response) {
                 console.error("Validation failed:", err.response.data.errors);
@@ -57,7 +57,7 @@ export default function AdminDash() {
             <main>
                 <Glass className="glass_dash">
                     <div className="breadcrumb_container">
-                        <p className="former_page" onClick={() => navigate('/landing')}>Home &gt; <span className="current_page">Admin Dashboard</span></p>
+                        <p className="former_page" onClick={() => navigate('/')}>Home &gt; <span className="current_page">Admin Dashboard</span></p>
                     </div>
                     <form className="blog_inputs" onSubmit={submitBlog}>
                         <div className="title_container">

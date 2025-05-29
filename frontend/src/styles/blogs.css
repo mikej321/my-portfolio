@@ -42,9 +42,10 @@
 }
 
 .blog_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 12fr 1fr;
+    justify-content: space-around;
     align-items: center;
     gap: 2rem;
     background-color: var(--clean_primary_day);
@@ -61,7 +62,17 @@
 
 .blog_container p {
     font-size: 2rem;
-    font-weight: bold;
+    font-weight: bold;   
+}
+
+.delete_icon {
+    color: var(--modern_accent_night);
+    transition: color 0.2s ease-in-out;
+}
+
+.delete_icon:hover {
+    color: red;
+    pointer-events: all;
 }
 
 .blog_clicked_expanded {
@@ -85,4 +96,5 @@
     font-size: 1.6rem;
     font-family: var(--lato);
     color: var(--modern_background_night);
+    line-height: 3rem;
 }

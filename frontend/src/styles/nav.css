@@ -17,6 +17,7 @@
 .portfolio_icon {
     width: 4.8rem;
     height: 4.6rem;
+    cursor: pointer;
     /* flex: 0 1 auto; */
 }
 

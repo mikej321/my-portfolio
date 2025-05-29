@@ -4,6 +4,15 @@ import gsap from "gsap";
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useNavigate } from "react-router-dom";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+} from 'recharts';
 import Navbar from "../components/Navbar";
 import Glass from "../components/glass";
 import FooterBar from "../components/footer";
@@ -23,6 +32,15 @@ export default function Skills() {
       ".strengths_container",
       ".achievements_container"
     ];
+
+  const sampleData = [
+    { name: "HTML", value: 500},
+    { name: "CSS", value: 500 },
+    { name: "JS", value: 400 },
+    { name: "Python", value: 300 },
+    { name: "SQL", value: 240 },
+    { name: "Design", value: 278 },
+  ]
 
   const animateStaggeredChildren = (containerSelector, scrollerEl) => {
     const container = document.querySelector(containerSelector);
@@ -78,7 +96,7 @@ export default function Skills() {
       opacity: 0,
       stagger: 0.2,
       onComplete: () => {
-        navigate('/landing');
+        navigate('/');
       }
     })
   }
@@ -126,6 +144,22 @@ export default function Skills() {
                   <li>Obtained Associate Data Engineer certification with DataCamp (April 3, 2025)</li>
                   <li>Completed Build Carolina Apprenticeship (June 20, 2025)</li>
                 </ul>
+              </div>
+              <div className="chart-container">
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart
+                   data={sampleData} 
+                  //  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                   className="my-bar-chart"
+                   >
+                    <CartesianGrid strokeDasharray="3 3" className="grid-lines" />
+                    <XAxis dataKey="name" className="x-axis" />
+                    <YAxis className="y-axis" />
+                    <Tooltip wrapperClassName="tooltip-box" />
+                    <Bar dataKey="value" animationDuration={800} activeBarOffset={0} className="my-bar" />
+                   </BarChart>
+                </ResponsiveContainer>
+
               </div>
             </div>
           </div>

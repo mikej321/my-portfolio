@@ -4,7 +4,7 @@ import { useGSAP } from '@gsap/react';
 import "../styles/App.css";
 import "../styles/nav.css";
 
-export default function Navbar() {
+export default function Navbar({ onIconClick }) {
 
   const navRef = useRef(null);
   const mainIconRef = useRef(null);
@@ -57,6 +57,7 @@ export default function Navbar() {
         className="portfolio_icon"
         src="/assets/portfolio_main_icon.svg"
         alt="A folder with paper inside"
+        onClick={onIconClick}
       />
       <div ref={identifierRef} className="identifier">
         <p className="nav_name">Michael Johnson</p>

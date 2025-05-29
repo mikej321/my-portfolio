@@ -4,6 +4,7 @@ const { body, validationResult } = require('express-validator');
 require("dotenv").config();
 
 const authenticateToken = require('../middleware/authenticate');
+const authenticateJWT = require('../middleware/authenticate');
 
 Router.post(
     "/add_blog",
@@ -86,5 +87,29 @@ Router.get('/get_blogs', async (req, res, next) => {
         })
     }
 })
+
+Router.delete(
+    '/:id',
+    authenticateJWT,
+    async (req, res) => {
+        const id  = Number(req.params.id);
+
+        try {
+            const deletedArticle = await prisma.article.delete({
+                where: { 
+                    articleId: id,
+                 }
+            })
+
+            res.json(deletedArticle);
+        } catch(err) {
+            console.error(err);
+
+            if (err.code === "P2025") return res.status(404).json({ error: "Post not found" });
+
+            return res.status(500).json({ error: "Could not delete post" });
+        }
+    }
+)
 
 module.exports = Router;

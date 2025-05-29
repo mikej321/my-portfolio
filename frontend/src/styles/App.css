@@ -40,6 +40,21 @@ img {
   object-fit: contain;
 }
 
+input[type="text"] {
+  color: var(--clean_accent_day);
+  font-family: var(--montserrat);
+  font-size: 1.6rem;
+  padding-left: 1rem;
+}
+
+textarea {
+  color: var(--clean_accent_day);
+  font-family: var(--montserrat);
+  font-size: 1.6rem;
+  padding-left: 1rem;
+  padding-top: 1rem;
+}
+
 body {
   position: relative;
   font-size: 1.6rem;
