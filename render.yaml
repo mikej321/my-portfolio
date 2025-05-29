@@ -1,11 +1,13 @@
 # render.yaml
-services:
-  - type: staticSite
-    name: my_portfolio_frontend   # must match your Render service name
-    env: node
-    branch: main
+static_sites:
+  - name: my_portfolio_frontend    # exactly what you see in Render’s UI
+    branch: main                   # or whatever branch you deploy
+    region: oregon                 # optional, your chosen region
     buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: frontend/dist
+    publishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://my-portfolio-backend-qdj1.onrender.com
     routes:
       - type: rewrite
         source:  "/<*>"
