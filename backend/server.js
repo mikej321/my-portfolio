@@ -14,9 +14,10 @@ const adminLogin = require("./routes/adminLogin");
 const adminSignup = require("./routes/adminSignup");
 const posts = require("./routes/posts");
 
+const FRONTEND_URL = ['http://localhost:5173', 'https://my-portfolio-frontend-ob69.onrender.com'];
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: FRONTEND_URL,
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"]
@@ -30,16 +31,8 @@ app.use(
   })
 );
 
-const FRONTEND_URL = ['http://localhost:5173', 'https://my-portfolio-frontend-ob69.onrender.com'];
 
 // app.use(express.static(path.join(__dirname, "../frontend/dist/index.html")));
-
-app.options("*", cors({
-  origin: FRONTEND_URL,
-  credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
-  methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"]
-}))
 
 app.use("/test", (req, res) => {
   res.json({ message: "Backend is working" });
