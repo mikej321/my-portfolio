@@ -30,7 +30,7 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(__dirname, "../frontend/dist/index.html")));
+// app.use(express.static(path.join(__dirname, "../frontend/dist/index.html")));
 
 app.options("*", cors({
   origin: ["http://localhost:5173", "http://localhost:3000"],
@@ -50,12 +50,13 @@ app.use("/adminSignup", adminSignup);
 app.use("/posts", posts);
 
 // Main React Route
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+// });
 
 // routes go here
 
-app.listen(3000, () =>
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () =>
   console.log(`Server running on port ${process.env.PORT}`)
 );
