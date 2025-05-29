@@ -30,7 +30,7 @@ app.use(
   })
 );
 
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+const FRONTEND_URL = ['http://localhost:5173', 'https://my-portfolio-frontend-ob69.onrender.com'];
 
 // app.use(express.static(path.join(__dirname, "../frontend/dist/index.html")));
 
