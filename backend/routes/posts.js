@@ -12,7 +12,7 @@ Router.post(
         body("title")
             .notEmpty()
             .withMessage("Please add a title to identify the blog")
-            .isLength({ min: 2, max: 40 }),
+            .isLength({ min: 2, max: 100 }),
         body("content")
             .notEmpty()
             .withMessage("Please add content to your blog")
