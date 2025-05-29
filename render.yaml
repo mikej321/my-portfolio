@@ -10,5 +10,5 @@ static_sites:
         value: https://my-portfolio-backend-qdj1.onrender.com
     routes:
       - type: rewrite
-        source:  "/<*>"
+        source:  "/*"
         destination: "/index.html"
