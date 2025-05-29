@@ -1,9 +1,12 @@
-static_site:
-  name: my_portfolio_frontend   # match your Render service name
-  root: frontend                # where your Vite code lives
-  buildCommand: npm install && npm run build
-  publishPath: dist
-  routes:
-    - type: rewrite
-      source:  /<*>
-      destination: /index.html
+# render.yaml
+services:
+  - type: staticSite
+    name: my_portfolio_frontend   # must match your Render service name
+    env: node
+    branch: main
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    routes:
+      - type: rewrite
+        source:  "/<*>"
+        destination: "/index.html"
