@@ -72,48 +72,44 @@ export default function Skills() {
 
   // Initialize OverlayScrollbars and hook ScrollTrigger to its viewport
   useGSAP(() => {
-    if (!containerRef.current) return;
+  if (!containerRef.current) return;
 
-    const osInstance = OverlayScrollbars(containerRef.current, {
-      scrollbars: { autoHide: 'leave' }
-    });
-    const scrollerEl = osInstance.elements().viewport;
-    viewportRef.current = scrollerEl;
+  const osInstance = OverlayScrollbars(containerRef.current, {
+    scrollbars: { autoHide: 'leave' }
+  });
 
-    // Proxy ScrollTrigger to use the custom scroller
-    ScrollTrigger.scrollerProxy(scrollerEl, {
-      scrollTop(value) {
-        if (arguments.length) {
-          osInstance.scroll({ y: value });
-        }
-        return osInstance.scroll().position.y;
-      },
-      getBoundingClientRect() {
-        return {
-          top: 0,
-          left: 0,
-          width: scrollerEl.clientWidth,
-          height: scrollerEl.clientHeight
-        };
+  const scrollerEl = osInstance.elements().viewport;
+
+  // Tell ScrollTrigger to use our OS instance instead of window
+  ScrollTrigger.scrollerProxy(scrollerEl, {
+    scrollTop(value) {
+      if (arguments.length) {
+        // setter: call the OS API
+        osInstance.scroll({ y: value });
       }
-    });
+      // getter: return current scroll position
+      return osInstance.scroll().position.y;
+    },
+    getBoundingClientRect() {
+      // pretend the scroller is the full viewport
+      return { top: 0, left: 0,
+               width: scrollerEl.clientWidth,
+               height: scrollerEl.clientHeight };
+    }
+  });
 
-    // Set our custom scroller as the default for all triggers
-    ScrollTrigger.defaults({ scroller: scrollerEl });
+  // make every ScrollTrigger default to our container
+  ScrollTrigger.defaults({ scroller: scrollerEl });
 
-    // Animate each section when it enters view
-    containers.forEach(selector => {
-      animateStaggeredChildren(selector, scrollerEl);
-    });
+  // now your existing animations…
+  containers.forEach((selector) => animateStaggeredChildren(selector, scrollerEl));
+  ScrollTrigger.refresh();
 
-    // Refresh to ensure correct trigger positions
-    ScrollTrigger.refresh();
-
-    return () => {
-      osInstance.destroy();
-      ScrollTrigger.removeEventListener("refreshInit");
-    };
-  }, []);
+  return () => {
+    osInstance.destroy();
+    ScrollTrigger.clearScrollMemory();   // clean up
+  };
+}, []);
 
   const backAnimation = () => {
     gsap.to(
