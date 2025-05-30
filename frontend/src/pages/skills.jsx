@@ -114,7 +114,6 @@ export default function Skills() {
     // clean up on unmount
     return () => {
       osInstance.destroy();
-      ScrollTrigger.clearScollerProxy(scrollerEl);
     };
   }, []);
 
