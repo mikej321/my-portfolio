@@ -74,7 +74,9 @@ body {
 
 main {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rem;
   margin: 0 auto;
   min-width: 100vw;
   padding-inline: 4rem;

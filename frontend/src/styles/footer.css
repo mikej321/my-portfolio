@@ -1,14 +1,12 @@
 .mobile_social_container {
-    position: absolute;
-    /* bottom: clamp(3rem, 4vh, 6rem); */
-    bottom: 8rem;
-    left: 4rem;
-    right: 4rem;
     display: flex;
     align-items: center;
-    margin-top: 10rem;
+    margin: 4rem auto 2rem;
+    width: 100%;
+    max-width: 20rem;
     /* border: 1px solid white; */
-    justify-content: space-around;
+    justify-content: center;
+    gap: 4rem;
 }
 
 .social_icon {
