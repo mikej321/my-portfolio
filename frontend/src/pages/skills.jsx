@@ -20,7 +20,7 @@ import Icon_bar from "../components/icon_bar";
 import '../styles/App.css';
 import '../styles/skills.css';
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Skills() {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ export default function Skills() {
     { name: "JS", value: 400 },
     { name: "Python", value: 300 },
     { name: "SQL", value: 240 },
-    { name: "Design", value: 278 }
+    { name: "Design", value: 278 },
   ];
 
   const animateStaggeredChildren = (containerSelector, scrollerEl) => {
@@ -50,8 +50,7 @@ export default function Skills() {
       child.tagName === 'UL' ? Array.from(child.children) : [child]
     );
 
-    gsap.fromTo(
-      children,
+    gsap.fromTo(children,
       { opacity: 0, y: 50 },
       {
         opacity: 1,
@@ -65,64 +64,68 @@ export default function Skills() {
           scroller: scrollerEl,
           start: "top+=100 bottom",
           toggleActions: "play reverse play reverse",
-        }
+        },
       }
     );
   };
 
-  // Initialize OverlayScrollbars and hook ScrollTrigger to its viewport
   useGSAP(() => {
-  if (!containerRef.current) return;
+    if (!containerRef.current) return;
 
-  const osInstance = OverlayScrollbars(containerRef.current, {
-    scrollbars: { autoHide: 'leave' }
-  });
+    // 1) turn on OverlayScrollbars
+    const osInstance = OverlayScrollbars(containerRef.current, {
+      scrollbars: { autoHide: 'leave' }
+    });
 
-  const scrollerEl = osInstance.elements().viewport;
+    // 2) grab the actual scrolling viewport element
+    const scrollerEl = osInstance.elements().viewport;
+    viewportRef.current = scrollerEl;
 
-  // Tell ScrollTrigger to use our OS instance instead of window
-  ScrollTrigger.scrollerProxy(scrollerEl, {
-    scrollTop(value) {
-      if (arguments.length) {
-        // setter: call the OS API
-        osInstance.scroll({ y: value });
-      }
-      // getter: return current scroll position
-      return osInstance.scroll().position.y;
-    },
-    getBoundingClientRect() {
-      // pretend the scroller is the full viewport
-      return { top: 0, left: 0,
-               width: scrollerEl.clientWidth,
-               height: scrollerEl.clientHeight };
-    }
-  });
+    // 3) tell ScrollTrigger to proxy all scrollTop calls to that element
+    ScrollTrigger.scrollerProxy(scrollerEl, {
+      scrollTop(value) {
+        if (arguments.length) {
+          scrollerEl.scrollTop = value;
+        }
+        return scrollerEl.scrollTop;
+      },
+      // we only scroll vertically, so no need for scrollLeft
+      getBoundingClientRect() {
+        return {
+          top: 0,
+          left: 0,
+          width: scrollerEl.clientWidth,
+          height: scrollerEl.clientHeight
+        };
+      },
+      pinType: scrollerEl.style.transform ? "transform" : "fixed"
+    });
 
-  // make every ScrollTrigger default to our container
-  ScrollTrigger.defaults({ scroller: scrollerEl });
+    // make sure every ScrollTrigger uses our container by default
+    ScrollTrigger.defaults({ scroller: scrollerEl });
 
-  // now your existing animations…
-  containers.forEach((selector) => animateStaggeredChildren(selector, scrollerEl));
-  ScrollTrigger.refresh();
+    // 4) wire up your scroll-triggered animations
+    containers.forEach(selector => {
+      animateStaggeredChildren(selector, scrollerEl);
+    });
 
-  return () => {
-    osInstance.destroy();
-    ScrollTrigger.clearScrollMemory();   // clean up
-  };
-}, []);
+    // refresh in case OverlayScrollbars changed the layout
+    ScrollTrigger.refresh();
+
+    // clean up on unmount
+    return () => {
+      osInstance.destroy();
+      ScrollTrigger.clearScollerProxy(scrollerEl);
+    };
+  }, []);
 
   const backAnimation = () => {
-    gsap.to(
-      ".tools_container, .strengths_container, .achievements_container",
-      {
-        y: -50,
-        opacity: 0,
-        stagger: 0.2,
-        onComplete: () => {
-          navigate('/');
-        }
-      }
-    );
+    gsap.to(".tools_container, .strengths_container, .achievements_container", {
+      y: -50,
+      opacity: 0,
+      stagger: 0.2,
+      onComplete: () => navigate('/')
+    });
   };
 
   return (
@@ -139,7 +142,6 @@ export default function Skills() {
                   Home &gt; <span className="current_page">My Skills</span>
                 </p>
               </div>
-
               <div className="tools_container">
                 <h1>Tools and Tech</h1>
                 <ul className="tools">
@@ -150,7 +152,6 @@ export default function Skills() {
                   <li>SQL (PostgreSQL)</li>
                 </ul>
               </div>
-
               <div className="strengths_container">
                 <h1>Strengths</h1>
                 <ul className="strengths">
@@ -161,17 +162,15 @@ export default function Skills() {
                   <li>Clean Code</li>
                 </ul>
               </div>
-
               <div className="achievements_container">
                 <h1>Achievements</h1>
                 <ul className="achievements">
                   <li>Finished FreeCodeCamp's Web Development Course (2022)</li>
                   <li>Finished TheOdinProject's Full Stack Course (2023)</li>
-                  <li>Obtained Associate Data Engineer certification with DataCamp (April 3, 2025)</li>
-                  <li>Completed Build Carolina Apprenticeship (June 20, 2025)</li>
+                  <li>Associate Data Engineer cert with DataCamp (Apr 3, 2025)</li>
+                  <li>Completed Build Carolina Apprenticeship (Jun 20, 2025)</li>
                 </ul>
               </div>
-
               <div className="chart-container">
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={sampleData} className="my-bar-chart">
@@ -179,7 +178,7 @@ export default function Skills() {
                     <XAxis dataKey="name" className="x-axis" />
                     <YAxis className="y-axis" />
                     <Tooltip wrapperClassName="tooltip-box" />
-                    <Bar dataKey="value" animationDuration={800} activeBarOffset={0} className="my-bar" />
+                    <Bar dataKey="value" animationDuration={800} className="my-bar" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
