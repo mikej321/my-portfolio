@@ -25,8 +25,8 @@
     left: 0;
     display: flex;
     justify-content: space-around;
-    gap: 4rem;
-    padding-inline: 3rem;
+    gap: 2rem;
+    padding-inline: 2rem;
     z-index: 5;
 }
 
@@ -93,6 +93,7 @@
         height: 16rem;
         bottom: 5rem;
         /* border: 1px solid red; */
-
+        padding-inline: 3rem;
+        gap: 4rem;
     }
 }
