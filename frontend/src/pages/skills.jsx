@@ -28,19 +28,19 @@ export default function Skills() {
   const containerRef = useRef(null);
   const viewportRef = useRef(null);
   const containers = [
-      ".tools_container",
-      ".strengths_container",
-      ".achievements_container"
-    ];
+    ".tools_container",
+    ".strengths_container",
+    ".achievements_container"
+  ];
 
   const sampleData = [
-    { name: "HTML", value: 500},
+    { name: "HTML", value: 500 },
     { name: "CSS", value: 500 },
     { name: "JS", value: 400 },
     { name: "Python", value: 300 },
     { name: "SQL", value: 240 },
-    { name: "Design", value: 278 },
-  ]
+    { name: "Design", value: 278 }
+  ];
 
   const animateStaggeredChildren = (containerSelector, scrollerEl) => {
     const container = document.querySelector(containerSelector);
@@ -50,7 +50,8 @@ export default function Skills() {
       child.tagName === 'UL' ? Array.from(child.children) : [child]
     );
 
-    gsap.fromTo(children,
+    gsap.fromTo(
+      children,
       { opacity: 0, y: 50 },
       {
         opacity: 1,
@@ -58,48 +59,75 @@ export default function Skills() {
         delay: 2.5,
         duration: 0.6,
         stagger: 0.15,
+        ease: "power3.out",
         scrollTrigger: {
           trigger: container,
           scroller: scrollerEl,
           start: "top+=100 bottom",
           toggleActions: "play reverse play reverse",
-        },
-        ease: "power3.out"
+        }
       }
     );
   };
 
+  // Initialize OverlayScrollbars and hook ScrollTrigger to its viewport
   useGSAP(() => {
     if (!containerRef.current) return;
 
     const osInstance = OverlayScrollbars(containerRef.current, {
       scrollbars: { autoHide: 'leave' }
     });
-
     const scrollerEl = osInstance.elements().viewport;
     viewportRef.current = scrollerEl;
 
+    // Proxy ScrollTrigger to use the custom scroller
+    ScrollTrigger.scrollerProxy(scrollerEl, {
+      scrollTop(value) {
+        if (arguments.length) {
+          osInstance.scroll({ y: value });
+        }
+        return osInstance.scroll().position.y;
+      },
+      getBoundingClientRect() {
+        return {
+          top: 0,
+          left: 0,
+          width: scrollerEl.clientWidth,
+          height: scrollerEl.clientHeight
+        };
+      }
+    });
+
+    // Set our custom scroller as the default for all triggers
+    ScrollTrigger.defaults({ scroller: scrollerEl });
+
+    // Animate each section when it enters view
     containers.forEach(selector => {
       animateStaggeredChildren(selector, scrollerEl);
     });
 
+    // Refresh to ensure correct trigger positions
     ScrollTrigger.refresh();
 
     return () => {
-      osInstance?.destroy();
+      osInstance.destroy();
+      ScrollTrigger.removeEventListener("refreshInit");
     };
   }, []);
 
-  const backAnimation = async() => {
-    gsap.to(".tools_container, .strengths_container, .achievements_container", {
-      y: -50,
-      opacity: 0,
-      stagger: 0.2,
-      onComplete: () => {
-        navigate('/');
+  const backAnimation = () => {
+    gsap.to(
+      ".tools_container, .strengths_container, .achievements_container",
+      {
+        y: -50,
+        opacity: 0,
+        stagger: 0.2,
+        onComplete: () => {
+          navigate('/');
+        }
       }
-    })
-  }
+    );
+  };
 
   return (
     <div className="page_container">
@@ -111,7 +139,9 @@ export default function Skills() {
           <div ref={containerRef} className="scrollbar-container">
             <div className="skills_grid">
               <div className="breadcrumb_container">
-                <p className="former_page" onClick={backAnimation}>Home &gt; <span className="current_page">My Skills</span></p>
+                <p className="former_page" onClick={backAnimation}>
+                  Home &gt; <span className="current_page">My Skills</span>
+                </p>
               </div>
 
               <div className="tools_container">
@@ -145,21 +175,17 @@ export default function Skills() {
                   <li>Completed Build Carolina Apprenticeship (June 20, 2025)</li>
                 </ul>
               </div>
+
               <div className="chart-container">
                 <ResponsiveContainer width="100%" height={300}>
-                  <BarChart
-                   data={sampleData} 
-                  //  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                   className="my-bar-chart"
-                   >
+                  <BarChart data={sampleData} className="my-bar-chart">
                     <CartesianGrid strokeDasharray="3 3" className="grid-lines" />
                     <XAxis dataKey="name" className="x-axis" />
                     <YAxis className="y-axis" />
                     <Tooltip wrapperClassName="tooltip-box" />
                     <Bar dataKey="value" animationDuration={800} activeBarOffset={0} className="my-bar" />
-                   </BarChart>
+                  </BarChart>
                 </ResponsiveContainer>
-
               </div>
             </div>
           </div>
