@@ -55,7 +55,6 @@ export default function Skills() {
       {
         opacity: 1,
         y: 0,
-        delay: 2.5,
         duration: 0.6,
         stagger: 0.15,
         ease: "power3.out",
