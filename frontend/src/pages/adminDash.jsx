@@ -64,10 +64,10 @@ export default function AdminDash() {
                             <label htmlFor="title" className="title">Blog Title</label>
                             <input type="text" name="title" id="title" value={blogTitle} onChange={(e) => setBlogTitle(e.target.value)} />
                         </div>
-                        <div className="content_container">
+                        {/* <div className="content_container">
                             <label htmlFor="content" className="content">Blog Content</label>
                             <textarea type="text" name="content" id="content" value={blogContent} onChange={(e) => setBlogContent(e.target.value)} />
-                        </div>
+                        </div> */}
                         <button className="add_blog" type="submit">Add Blog</button>
                     </form>
                 </Glass>

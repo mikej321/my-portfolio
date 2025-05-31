@@ -26,61 +26,8 @@ export default function Landing() {
     const openSidebar = () => setSidebarOpen(!sidebarOpen);
 
     const handleIconClick = (targetRoute) => {
-        const roleChildren = [...roleDetails.current.children];
-
-        landingTl.current.to(picRef.current, {
-            x: -50,
-            opacity: 0,
-            duration: .3,
-            ease: "power3.in"
-        })
-        .to(headerRef.current, {
-            x: 50,
-            opacity: 0,
-            duration: .3,
-            ease: "power3.in"
-        })
-        .to(roleChildren, {
-            x: -50,
-            opacity: 0,
-            duration: .3,
-            ease: "power3.in",
-            stagger: 0.2,
-            onComplete: () => navigate(targetRoute)
-        })
+        navigate(targetRoute);
     }
-
-    useLayoutEffect(() => {
-        const roleChildren = [...roleDetails.current.children];
-
-        gsap.set(
-            [picRef.current, headerRef.current, roleChildren],
-            { x: -50, opacity: 0 }
-        )
-
-        landingTl.current = gsap.timeline()
-            .to(picRef.current, {
-                x: 0,
-                opacity: 1,
-                duration: .3,
-                ease: "power3.out"
-            })
-            .to(headerRef.current, {
-                x: 0,
-                opacity: 1,
-                duration: .3,
-                ease: "power3.out"
-            })
-            .to(roleChildren, {
-                x: 0,
-                opacity: 1,
-                duration: .3,
-                ease: "power3.out",
-                stagger: 0.2,
-            });
-
-        landingTl.current.play();
-    }, [])
 
     return (
         <div className="page_container">
@@ -93,8 +40,8 @@ export default function Landing() {
                     <div ref={picRef} className="profile_pic_container">
                         <img className="profile_pic" src="/assets/profile_pic.jpg" alt="author's profile pic" />
                     </div>
-                    <h1 ref={headerRef} className="landing_header">Michael Johnson</h1>
-                    <div ref={roleDetails} className="role_details">
+                    <h1 className="landing_header">Michael Johnson</h1>
+                    <div className="role_details">
                         <p className="role">Data & Software Engineer</p>
                         <p className="landing_guide">View my work below and let's create something truly special</p>
                     </div>

@@ -89,8 +89,7 @@ export default function Icon_bar({ onIconClick }) {
                 y: 0,
                 duration: 0.8,
                 ease: "bounce.out",
-                stagger: 0.1,
-                delay: 2
+                stagger: 0.1
             })
     
             gsap.fromTo(ascendingIcons, 

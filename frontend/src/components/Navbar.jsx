@@ -24,7 +24,7 @@ export default function Navbar({ onIconClick }) {
     }, {
       x: 0,
       opacity: 1,
-      duration: 1,
+      duration: .6,
       ease: "power3.out"
     })
     .fromTo(identifierChildren, {
@@ -33,7 +33,7 @@ export default function Navbar({ onIconClick }) {
     }, {
       y: 0,
       opacity: 1,
-      duration: 1,
+      duration: .6,
       stagger: 0.2,
       ease: "power3.out"
     })
@@ -43,7 +43,7 @@ export default function Navbar({ onIconClick }) {
     }, {
       x: 0,
       opacity: 1,
-      duration: 1,
+      duration: .6,
       stagger: 0.2,
       ease: "power3.out"
     })
